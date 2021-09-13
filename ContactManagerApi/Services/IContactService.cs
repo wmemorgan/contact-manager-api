@@ -11,7 +11,7 @@ namespace ContactManagerApi.Services
     {
         List<Contact> GetAllContacts();
         Contact GetContactById(int id);
-        List<CallListContact> GetCallListContacts();
+        List<CallListContact> CreateCallList();
         int Save(Contact contact);
         bool Update(Contact contact, int id);
         bool Delete(int id);

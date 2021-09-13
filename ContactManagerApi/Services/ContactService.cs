@@ -3,7 +3,6 @@ using ContactManagerApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContactManagerApi.Services
 {
@@ -28,9 +27,28 @@ namespace ContactManagerApi.Services
             return contactRepository.FindOne(id);
         }
 
-        public List<CallListContact> GetCallListContacts()
+        public List<CallListContact> CreateCallList()
         {
-            throw new NotImplementedException();
+            List<CallListContact> rtnList = new List<CallListContact>();
+
+            foreach(Contact contact in contactRepository.FindAll())
+            {
+                int idx = contact.phone.FindIndex(p => p.Type.ToLower() == "home");
+                if (idx >= 0)
+                {
+                    rtnList.Add(
+                        new CallListContact
+                        {
+                            name = contact.name,
+                            PhoneNumber = contact.phone[idx].Number
+                        }
+                    );
+                }
+            }
+
+            return rtnList.OrderBy(c => c.name.Last)
+                        .ThenBy(c => c.name.First)
+                        .ToList();
         }
 
 
