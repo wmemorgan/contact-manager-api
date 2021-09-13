@@ -1,8 +1,5 @@
 ﻿using ContactManagerApi.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 /// <summary>
 /// CRUD repository connecting the Contact model to the rest of the application
