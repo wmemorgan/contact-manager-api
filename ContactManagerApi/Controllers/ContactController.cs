@@ -41,5 +41,47 @@ namespace ContactManagerApi.Controllers
         {
             return contactService.CreateCallList();
         }
+
+        [HttpPost]
+        public ActionResult<Contact> CreateContact(Contact contact)
+        {
+            var id = contactService.Save(contact);
+            if (id != default)
+            {
+                return Created("", id);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Contact> UpdateContact(Contact contact, int id)
+        {
+            var result = contactService.Update(contact, id);
+            if (result)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        
+        [HttpDelete("{id}")]
+        public ActionResult<Contact> DeleteContact(int id)
+        {
+            var result = contactService.Delete(id);
+            if (result)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
