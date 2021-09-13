@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Class represents name entity
+/// This class represents name entity
 /// </summary>
 
 namespace ContactManagerApi.Models
