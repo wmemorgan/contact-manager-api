@@ -16,6 +16,6 @@ namespace ContactManagerApi.Data
         Contact FindOne(int id);
         int Insert(Contact contact);
         bool Update(Contact contact);
-        int Delete(int id);
+        bool Delete(int id);
     }
 }
