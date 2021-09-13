@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Implements the IContactService interface
+/// </summary>
+
 namespace ContactManagerApi.Services
 {
     public class ContactService : IContactService
