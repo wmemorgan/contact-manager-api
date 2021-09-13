@@ -9,7 +9,7 @@ namespace ContactManagerApi.Services
 {
     public interface IContactService
     {
-        IEnumerable<Contact> GetAllContacts();
+        List<Contact> GetAllContacts();
         Contact GetContactById(int id);
         List<CallListContact> GetCallListContacts();
         int Save(Contact contact);
