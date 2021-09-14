@@ -12,30 +12,28 @@ namespace ContactManagerApi.Services
 {
     public class ContactService : IContactService
     {
-        private IContactRepository contactRepository;
+        private readonly IContactRepository _contactRepository;
 
-        public List<Contact> GetAllContacts()
+        public ContactService(IContactRepository contactRepository)
         {
-            List<Contact> rtnList = new List<Contact>();
+            _contactRepository = contactRepository;
+        }
 
-            foreach(Contact contact in contactRepository.FindAll())
-            {
-                rtnList.Add(contact);
-            }
-
-            return rtnList;
+        public IEnumerable<Contact> GetAllContacts()
+        {
+            return _contactRepository.FindAll();
         }
 
         public Contact GetContactById(int id)
         {
-            return contactRepository.FindOne(id);
+            return _contactRepository.FindOne(id);
         }
 
         public List<CallListContact> CreateCallList()
         {
             List<CallListContact> rtnList = new List<CallListContact>();
 
-            foreach(Contact contact in contactRepository.FindAll())
+            foreach(Contact contact in _contactRepository.FindAll())
             {
                 int idx = contact.phone.FindIndex(p => p.Type.ToLower() == "home");
                 if (idx >= 0)
@@ -44,7 +42,7 @@ namespace ContactManagerApi.Services
                         new CallListContact
                         {
                             name = contact.name,
-                            PhoneNumber = contact.phone[idx].Number
+                            phone = contact.phone[idx].Number
                         }
                     );
                 }
@@ -58,14 +56,18 @@ namespace ContactManagerApi.Services
 
         public int Save(Contact contact)
         {
-            return contactRepository.Insert(contact);
+            Contact newContact = this.CreateContact(contact);
+            
+            return _contactRepository.Insert(newContact);
         }
 
         public bool Update(Contact contact, int id)
         {
-            if (contactRepository.FindOne(id) != null)
+            if (_contactRepository.FindOne(id) != null)
             {
-                return contactRepository.Update(contact);
+                contact.Id = id;
+                Contact updatedContact = this.CreateContact(contact);
+                return _contactRepository.Update(updatedContact);
             }
             else
             {
@@ -75,15 +77,56 @@ namespace ContactManagerApi.Services
 
         public bool Delete(int id)
         {
-            if (contactRepository.FindOne(id) != null)
+            if (_contactRepository.FindOne(id) != null)
             {
-                return contactRepository.Delete(id);
+                return _contactRepository.Delete(id);
             }
             else
             {
                 throw new Exception($"Contact {id} not found");
             }
                 
+        }
+
+        private Contact CreateContact(Contact contact)
+        {
+            Name name = new Name
+            {
+                First = contact.name.First,
+                Middle = contact.name.Middle,
+                Last = contact.name.Last
+            };
+
+            Address address = new Address
+            {
+                Street = contact.address.Street,
+                City = contact.address.City,
+                State = contact.address.State,
+                Zip = contact.address.Zip
+            };
+
+            Contact newContact = new Contact
+            {
+                name = name,
+                address = address,
+                Email = contact.Email
+            };
+
+            if (contact.Id >= 0)
+            {
+                newContact.Id = contact.Id;
+            }
+
+            foreach (Phone p in contact.phone)
+            {
+                newContact.phone.Add(new Phone 
+                { 
+                    Number = p.Number, 
+                    Type = p.Type 
+                });
+            }
+
+            return newContact;
         }
     }
 }

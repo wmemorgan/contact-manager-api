@@ -6,22 +6,27 @@ using System.Collections.Generic;
 
 namespace ContactManagerApi.Controllers
 {
-    [Route("api/contacts")]
+    [Route("contacts")]
     [ApiController]
     public class ContactController : ControllerBase
     {
-        private IContactService contactService;
+        private IContactService _contactService;
+
+        public ContactController(IContactService contactService)
+        {
+            _contactService = contactService;
+        }
 
         [HttpGet]
-        public List<Contact> GetContacts()
+        public IEnumerable<Contact> GetContacts()
         {
-            return contactService.GetAllContacts();
+            return _contactService.GetAllContacts();
         }
 
         [HttpGet("{id}", Name="FindOne")]
         public ActionResult<Contact> GetContactById(int id)
         {
-            var result = contactService.GetContactById(id);
+            var result = _contactService.GetContactById(id);
             if (result != default)
             {
                 return Ok(result);
@@ -33,16 +38,16 @@ namespace ContactManagerApi.Controllers
         }
 
         [HttpGet]
-        [Route("/call-list")]
+        [Route("call-list")]
         public List<CallListContact> GetCallList()
         {
-            return contactService.CreateCallList();
+            return _contactService.CreateCallList();
         }
 
         [HttpPost]
         public ActionResult<Contact> CreateContact(Contact contact)
         {
-            var id = contactService.Save(contact);
+            var id = _contactService.Save(contact);
             if (id != default)
             {
                 return Created("", id);
@@ -56,7 +61,7 @@ namespace ContactManagerApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Contact> UpdateContact(Contact contact, int id)
         {
-            var result = contactService.Update(contact, id);
+            var result = _contactService.Update(contact, id);
             if (result)
             {
                 return NoContent();
@@ -70,7 +75,7 @@ namespace ContactManagerApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Contact> DeleteContact(int id)
         {
-            var result = contactService.Delete(id);
+            var result = _contactService.Delete(id);
             if (result)
             {
                 return NoContent();

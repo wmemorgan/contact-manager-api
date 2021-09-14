@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿/// <summary>
+/// This class represents the Call list contact entity
+/// </summary>
 
 namespace ContactManagerApi.Models
 {
     public class CallListContact
     {
-        public Name name;
+        public Name name { get; set; }
 
-        [Display(Name = "phone")]
-        public string PhoneNumber { get; set; }
+        public string phone { get; set; }
     }
 }
