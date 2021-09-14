@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using ContactManagerApi.Data;
 using ContactManagerApi.Models;
 using ContactManagerApi.Services;
-using LiteDB;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static ContactManagerApiTests.TestUtilities;
 
 namespace ContactManagerApiTests
 {
@@ -14,8 +13,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void TestCreateCallList()
         {
-            IContactService contactService = new ContactService(this.SetupMockRepository(this.SetupTestDb()));
-            var testContact1 = this.CreateTestContact(
+            IContactService contactService = new ContactService(SetupMockRepository(SetupTestDb()));
+            var testContact1 = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gilkey",
@@ -35,7 +34,7 @@ namespace ContactManagerApiTests
                 Number = "302-532-9427",
                 Type = "mobile"
             });
-            var testContact2 = this.CreateTestContact(
+            var testContact2 = CreateTestContact(
                 "Steve",
                 "Allen",
                 "Rogers",
@@ -50,7 +49,7 @@ namespace ContactManagerApiTests
                 Number = "413-555-3414",
                 Type = "home"
             });
-            var testContact3 = this.CreateTestContact(
+            var testContact3 = CreateTestContact(
                 "Anthony",
                 "Edward",
                 "Stark",
@@ -74,54 +73,6 @@ namespace ContactManagerApiTests
             Assert.AreEqual(2, actual.Count());
             Assert.AreEqual("302-611-9148", actual.First<CallListContact>().phone);
         }
-
-        private IContactRepository SetupMockRepository(LiteDatabase db)
-        {
-            IContactRepository contactRepository = new ContactRepository(db);
-
-            return contactRepository;
-        }
-
-        private LiteDatabase SetupTestDb()
-        {
-            var db = new LiteDatabase(":memory:");
-
-            return db;
-        }
-
-        private Contact CreateTestContact(
-            string firstName,
-            string middleName,
-            string lastName,
-            string street,
-            string city,
-            string zip,
-            string state,
-            string email
-        )
-        {
-            Contact contact = new Contact
-            {
-                name = new Name
-                {
-                    First = firstName,
-                    Middle = middleName,
-                    Last = lastName
-                },
-                address = new Address
-                {
-                    Street = street,
-                    City = city,
-                    State = state,
-                    Zip = zip
-                },
-                Email = email
-            };
-
-
-            return contact;
-        }
-
 
     }
 }

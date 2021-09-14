@@ -3,6 +3,7 @@ using LiteDB;
 using System.Linq;
 using ContactManagerApi.Models;
 using ContactManagerApi.Data;
+using static ContactManagerApiTests.TestUtilities;
 
 namespace ContactManagerApiTests
 {
@@ -12,8 +13,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void GetAllRecordsTest()
         {
-            IContactRepository contactRepository = new ContactRepository(this.SetupTestDb());
-            var testContact = this.CreateTestContact(
+            IContactRepository contactRepository = new ContactRepository(SetupTestDb());
+            var testContact = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gilkey",
@@ -33,7 +34,7 @@ namespace ContactManagerApiTests
                 Number = "302-532-9427",
                 Type = "mobile"
             });
-            var testContact2 = this.CreateTestContact(
+            var testContact2 = TestUtilities.CreateTestContact(
                 "Steve",
                 "Allen",
                 "Rogers",
@@ -55,8 +56,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void GetRecordsByIdTest()
         {
-            IContactRepository contactRepository = new ContactRepository(this.SetupTestDb());
-            var testContact = this.CreateTestContact(
+            IContactRepository contactRepository = new ContactRepository(SetupTestDb());
+            var testContact = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gikey",
@@ -89,8 +90,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void InsertRecordTest()
         {
-            IContactRepository contactRepository = new ContactRepository(this.SetupTestDb());
-            var testContact = this.CreateTestContact(
+            IContactRepository contactRepository = new ContactRepository(SetupTestDb());
+            var testContact = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gikey",
@@ -122,8 +123,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void UpdateRecordTest()
         {
-            IContactRepository contactRepository = new ContactRepository(this.SetupTestDb());
-            var testContact = this.CreateTestContact(
+            IContactRepository contactRepository = new ContactRepository(SetupTestDb());
+            var testContact = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gilkey",
@@ -153,8 +154,8 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void DeleteRecordTest()
         {
-            IContactRepository contactRepository = new ContactRepository(this.SetupTestDb());
-            var testContact = this.CreateTestContact(
+            IContactRepository contactRepository = new ContactRepository(SetupTestDb());
+            var testContact = CreateTestContact(
                 "Harold",
                 "Francis",
                 "Gilkey",
@@ -177,46 +178,5 @@ namespace ContactManagerApiTests
             Assert.IsTrue(actual);
             Assert.AreEqual(0, allContacts.Count());
         }
-
-        private LiteDatabase SetupTestDb()
-        {
-            var db = new LiteDatabase(":memory:");
-            
-            return db;
-        }
-
-        private Contact CreateTestContact(
-            string firstName,
-            string middleName,
-            string lastName,
-            string street,
-            string city,
-            string zip,
-            string state,
-            string email
-        )
-        {
-            Contact contact = new Contact
-            {
-                name = new Name
-                {
-                    First = firstName,
-                    Middle = middleName,
-                    Last = lastName
-                },
-                address = new Address
-                {
-                    Street = street,
-                    City = city,
-                    State = state,
-                    Zip = zip
-                },
-                Email = email
-            };
-
-
-            return contact;
-        }
-
     }
 }
