@@ -43,12 +43,19 @@ namespace ContactManagerApiTests.Data
 
         }
 
-        private LiteDatabase SetupTestDb()
+        private ILiteDatabase SetupTestDb()
         {
             var db = new LiteDatabase("Data/TestContactsDb");
-            var col = db.GetCollection<Contact>("contacts");
-
+            
             return db;
+        }
+
+        private ILiteCollection<Contact> SetupTestCollection(ILiteDatabase db)
+        {
+            var col = db.GetCollection<Contact>("contacts");
+            col.DeleteAll();
+
+            return col;
         }
 
         private Contact CreateTestContact()
