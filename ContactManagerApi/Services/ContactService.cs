@@ -42,7 +42,7 @@ namespace ContactManagerApi.Services
                         new CallListContact
                         {
                             name = contact.name,
-                            PhoneNumber = contact.phone[idx].Number
+                            phone = contact.phone[idx].Number
                         }
                     );
                 }

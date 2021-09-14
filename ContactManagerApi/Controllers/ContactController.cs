@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ContactManagerApi.Controllers
 {
-    [Route("api/contacts")]
+    [Route("contacts")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -38,7 +38,7 @@ namespace ContactManagerApi.Controllers
         }
 
         [HttpGet]
-        [Route("/call-list")]
+        [Route("call-list")]
         public List<CallListContact> GetCallList()
         {
             return _contactService.CreateCallList();
