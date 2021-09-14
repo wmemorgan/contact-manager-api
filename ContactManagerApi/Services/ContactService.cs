@@ -90,25 +90,36 @@ namespace ContactManagerApi.Services
 
         private Contact CreateContact(Contact contact)
         {
-            Name name = new Name
-            {
-                First = contact.name.First,
-                Middle = contact.name.Middle,
-                Last = contact.name.Last
-            };
+            //Name name = new Name
+            //{
+            //    First = contact.name.First,
+            //    Middle = contact.name.Middle,
+            //    Last = contact.name.Last
+            //};
 
-            Address address = new Address
-            {
-                Street = contact.address.Street,
-                City = contact.address.City,
-                State = contact.address.State,
-                Zip = contact.address.Zip
-            };
+            //Address address = new Address
+            //{
+            //    Street = contact.address.Street,
+            //    City = contact.address.City,
+            //    State = contact.address.State,
+            //    Zip = contact.address.Zip
+            //};
 
             Contact newContact = new Contact
             {
-                name = name,
-                address = address,
+                name = new Name
+                {
+                    First = contact.name.First,
+                    Middle = contact.name.Middle,
+                    Last = contact.name.Last
+                },
+                address = new Address
+                {
+                    Street = contact.address.Street,
+                    City = contact.address.City,
+                    State = contact.address.State,
+                    Zip = contact.address.Zip
+                },
                 Email = contact.Email
             };
 
