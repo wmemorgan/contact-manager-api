@@ -12,7 +12,38 @@ namespace ContactManagerApiTests.Data
     [TestClass]
     class ContactRepositoryTests
     {
-        public LiteDatabase SetupTestDb()
+        [TestMethod]
+        public void GetAllRecordsTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void GetRecordsByIdTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void InsertRecordTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void UpdateRecordTest()
+        {
+
+        }
+
+
+        [TestMethod]
+        public void DeleteRecordTest()
+        {
+
+        }
+
+        private LiteDatabase SetupTestDb()
         {
             var db = new LiteDatabase("Data/TestContactsDb");
             var col = db.GetCollection<Contact>("contacts");
@@ -20,7 +51,7 @@ namespace ContactManagerApiTests.Data
             return db;
         }
 
-        public Contact CreateTestContact()
+        private Contact CreateTestContact()
         {
             Name name = new Name
             {
