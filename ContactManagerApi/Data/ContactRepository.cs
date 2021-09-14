@@ -18,6 +18,11 @@ namespace ContactManagerApi.Data
             _db = dbContext.Database;
         }
 
+        public ContactRepository(LiteDatabase db)
+        {
+            _db = db;
+        }
+
         public IEnumerable<Contact> FindAll()
         {
             return _db.GetCollection<Contact>("Contacts").FindAll();
