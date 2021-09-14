@@ -185,14 +185,6 @@ namespace ContactManagerApiTests
             return db;
         }
 
-        private ILiteCollection<Contact> SetupTestCollection(LiteDatabase db)
-        {
-            var col = db.GetCollection<Contact>("contacts");
-            col.DeleteAll();
-
-            return col;
-        }
-
         private Contact CreateTestContact(
             string firstName,
             string middleName,
