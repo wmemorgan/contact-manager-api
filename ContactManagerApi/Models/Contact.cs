@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// This class represents the contact entity
+/// This class represents the Contact entity
 /// </summary>
 
 using System.Collections.Generic;
