@@ -20,9 +20,7 @@ namespace ContactManagerApi.Data
 
         public IEnumerable<Contact> FindAll()
         {
-            var result = _db.GetCollection<Contact>("Contacts").FindAll();
-
-            return result;
+            return _db.GetCollection<Contact>("Contacts").FindAll();
         }
 
         public Contact FindOne(int id)
