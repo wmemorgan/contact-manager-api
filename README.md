@@ -7,6 +7,24 @@ REST API which manages contact records.
 Stores, retrieves, updates, and deletes contact records.
 
 
+
+## Documentation
+
+[API Specifications and Test Harness](https://cmbscontactmanagerapi.azurewebsites.net/)
+
+
+### Endpoints
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| GET    | `/contacts` | List all contacts.       |
+| GET    | `/contacts/:id` | Get a specific contact with the provided `id`. |
+| GET    | `/contacts/call-list` | Get a list of all contacts with home phone numbers. |
+| POST    | `/contacts` | Create a new contact. |
+| PUT    | `/contacts/:id` | Update a ticket.                   |
+| DELETE | `/contacts/:id` | Delete a contact.                            |
+
+
+
 ## Technologies
 
 - [.NET 5](https://dotnet.microsoft.com/download)
@@ -65,20 +83,6 @@ Stores, retrieves, updates, and deletes contact records.
 3. Press **F5**.
 
 </details>
-
-
-
-## Documentation
-
-### Endpoints
-| Method | Endpoint                        | Description                                        |
-|--------|---------------------------------|----------------------------------------------------|
-| GET    | `/contacts` | List all contacts.       |
-| GET    | `/contacts/:id` | Get a specific contact with the provided `id`. |
-| GET    | `/contacts/call-list` | Get a list of all contacts with home phone numbers. |
-| POST    | `/contacts` | Create a new contact. |
-| PUT    | `/contacts/:id` | Update a ticket.                   |
-| DELETE | `/contacts/:id` | Delete a contact.                            |
 
 
 
