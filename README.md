@@ -10,7 +10,7 @@ Stores, retrieves, updates, and deletes contact records.
 
 ## Documentation
 
-[API Specifications and Test Harness](https://cmbscontactmanagerapi.azurewebsites.net/)
+### [API Specifications and Test Harness](https://cmbscontactmanagerapi.azurewebsites.net/)
 
 
 ### Endpoints
