@@ -6,7 +6,6 @@ using static ContactManagerApiTests.TestUtilities;
 
 namespace ContactManagerApiTests
 {
-    
     [TestClass]
     public class ContactServiceTests
     {
