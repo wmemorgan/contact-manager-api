@@ -30,7 +30,7 @@ Stores, retrieves, updates, and deletes contact records.
 #### Steps
 
 1. Open directory **source\ContactManagerApi** in command line and execute **dotnet run**.
-2. Open <https://localhost:???>.
+2. Open <https://localhost:5001>.
 
 </details>
 
