@@ -64,6 +64,8 @@ Stores, retrieves, updates, and deletes contact records.
 2. Set **ContactManagerApi** as startup project.
 3. Press **F5**.
 
+</details>
+
 
 
 ## Documentation
