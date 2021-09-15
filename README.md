@@ -14,9 +14,9 @@ Stores, retrieves, updates, and deletes contact records.
 - [LiteDB](http://www.litedb.org/)
 
 
+
 ## Installation
 - Clone this repo to your local machine from `https://github.com/wmemorgan/contact-manager-api`
-- Install 
 
 
 ## Setup and Usage
@@ -63,3 +63,22 @@ Stores, retrieves, updates, and deletes contact records.
 1. Open **source\ContactManagerApi.sln** in Visual Studio.
 2. Set **ContactManagerApi** as startup project.
 3. Press **F5**.
+
+
+
+## Documentation
+
+### Endpoints
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| GET    | `/contacts` | List all contacts.       |
+| GET    | `/contacts/:id` | Get a specific contact with the provided `id`. |
+| GET    | `/contacts/call-list` | Get a list of all contacts with home phone numbers. |
+| POST    | `/contacts` | Create a new contact. |
+| PUT    | `/contacts/:id` | Update a ticket.                   |
+| DELETE | `/contacts/:id` | Delete a contact.                            |
+
+
+
+## License
+[MIT](https://github.com/wmemorgan/contact-manager-api/blob/master/LICENSE)
