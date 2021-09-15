@@ -28,7 +28,22 @@ namespace ContactManagerApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContactManagerApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Version = "v1", 
+                    Title = "Contact Manager API",
+                    Description = "REST API which manages contact records",
+                    Contact = new OpenApiContact {
+                        Name = "Wilfred Morgan",
+                        Email = "wilfred@wilfredmorgan.com",
+                        Url = new Uri("https://wilfredmorgan.com"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under MIT license",
+                        Url = new Uri("https://github.com/wmemorgan/contact-manager-api/blob/main/LICENSE"),
+                    }        
+                });
             });
         }
 
