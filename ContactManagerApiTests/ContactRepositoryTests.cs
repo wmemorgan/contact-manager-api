@@ -50,7 +50,7 @@ namespace ContactManagerApiTests
             var actual = contactRepository.FindAll();
 
             Assert.AreEqual(2, actual.Count());
-            Assert.AreEqual("Gilkey", actual.First().name.Last);
+            Assert.AreEqual("Gilkey", actual.First().name.LastName);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace ContactManagerApiTests
             var actual = contactRepository.FindOne(1);
 
             Assert.AreEqual(1, actual.Id);
-            Assert.AreEqual("Harold", actual.name.First);
+            Assert.AreEqual("Harold", actual.name.FirstName);
         }
 
         [TestMethod]
@@ -142,12 +142,12 @@ namespace ContactManagerApiTests
             var contactId = contactRepository.Insert(testContact);
             var retrievedContact = contactRepository.FindOne(contactId);
 
-            retrievedContact.name.Last = "Gilkey-Scott";
+            retrievedContact.name.LastName = "Gilkey-Scott";
             var actual = contactRepository.Update(retrievedContact);
             var updatedContact = contactRepository.FindOne(contactId);
 
             Assert.IsTrue(actual);
-            Assert.AreEqual("Gilkey-Scott", updatedContact.name.Last);
+            Assert.AreEqual("Gilkey-Scott", updatedContact.name.LastName);
         }
 
 

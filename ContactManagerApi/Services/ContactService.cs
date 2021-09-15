@@ -48,8 +48,8 @@ namespace ContactManagerApi.Services
                 }
             }
 
-            return rtnList.OrderBy(c => c.name.Last)
-                        .ThenBy(c => c.name.First)
+            return rtnList.OrderBy(c => c.name.LastName)
+                        .ThenBy(c => c.name.FirstName)
                         .ToList();
         }
 
@@ -94,9 +94,9 @@ namespace ContactManagerApi.Services
             {
                 name = new Name
                 {
-                    First = contact.name.First,
-                    Middle = contact.name.Middle,
-                    Last = contact.name.Last
+                    FirstName = contact.name.FirstName,
+                    MiddleName = contact.name.MiddleName,
+                    LastName = contact.name.LastName
                 },
                 address = new Address
                 {
