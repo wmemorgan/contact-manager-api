@@ -47,6 +47,11 @@ namespace ContactManagerApi
                         Url = new Uri("https://github.com/wmemorgan/contact-manager-api/blob/main/LICENSE"),
                     }        
                 });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
