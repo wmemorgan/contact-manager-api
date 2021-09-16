@@ -54,7 +54,7 @@ namespace ContactManagerApi.Services
         }
 
 
-        public int Save(Contact contact)
+        public int SaveContact(Contact contact)
         {
             Contact newContact = new Contact
             {

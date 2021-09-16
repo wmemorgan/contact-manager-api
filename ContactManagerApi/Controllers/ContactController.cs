@@ -73,7 +73,7 @@ namespace ContactManagerApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Contact> CreateContact(Contact contact)
         {
-            var id = _contactService.Save(contact);
+            var id = _contactService.SaveContact(contact);
             if (id != default)
             {
                 return Created("", id);

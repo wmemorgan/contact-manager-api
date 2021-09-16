@@ -12,7 +12,7 @@ namespace ContactManagerApi.Services
         IEnumerable<Contact> GetAllContacts();
         Contact GetContactById(int id);
         List<CallListContact> CreateCallList();
-        int Save(Contact contact);
+        int SaveContact(Contact contact);
         bool UpdateContact(Contact contact, int id);
         bool Delete(int id);
     }

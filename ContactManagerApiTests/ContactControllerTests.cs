@@ -64,9 +64,9 @@ namespace ContactManagerApiTests
                 Number = "310-424-5555",
                 Type = "mobile"
             });
-            contactService.Save(testContact1);
-            contactService.Save(testContact2);
-            contactService.Save(testContact3);
+            contactService.SaveContact(testContact1);
+            contactService.SaveContact(testContact2);
+            contactService.SaveContact(testContact3);
             var controller = new ContactController(contactService);
 
             var result = controller.GetContacts();
@@ -95,7 +95,7 @@ namespace ContactManagerApiTests
                 Number = "302-611-9148",
                 Type = "home"
             });
-            contactService.Save(testContact);
+            contactService.SaveContact(testContact);
             var controller = new ContactController(contactService);
 
             var result = controller.DeleteContact(1);
