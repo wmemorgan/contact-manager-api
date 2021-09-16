@@ -56,7 +56,37 @@ namespace ContactManagerApi.Services
 
         public int Save(Contact contact)
         {
-            Contact newContact = this.CreateContact(contact);
+            Contact newContact = new Contact
+            {
+                name = new Name
+                {
+                    First = contact.name.First,
+                    Middle = contact.name.Middle,
+                    Last = contact.name.Last
+                },
+                address = new Address
+                {
+                    Street = contact.address.Street,
+                    City = contact.address.City,
+                    State = contact.address.State,
+                    Zip = contact.address.Zip
+                },
+                Email = contact.Email
+            };
+
+            if (contact.Id >= 0)
+            {
+                newContact.Id = contact.Id;
+            }
+
+            foreach (Phone p in contact.phone)
+            {
+                newContact.phone.Add(new Phone
+                {
+                    Number = p.Number,
+                    Type = p.Type
+                });
+            }
 
             return _contactRepository.Insert(newContact);
         }
@@ -137,43 +167,6 @@ namespace ContactManagerApi.Services
                 throw new Exception($"Contact {id} not found");
             }
                 
-        }
-
-        private Contact CreateContact(Contact contact)
-        {
-            Contact newContact = new Contact
-            {
-                name = new Name
-                {
-                    First = contact.name.First,
-                    Middle = contact.name.Middle,
-                    Last = contact.name.Last
-                },
-                address = new Address
-                {
-                    Street = contact.address.Street,
-                    City = contact.address.City,
-                    State = contact.address.State,
-                    Zip = contact.address.Zip
-                },
-                Email = contact.Email
-            };
-
-            if (contact.Id >= 0)
-            {
-                newContact.Id = contact.Id;
-            }
-
-            foreach (Phone p in contact.phone)
-            {
-                newContact.phone.Add(new Phone 
-                { 
-                    Number = p.Number, 
-                    Type = p.Type 
-                });
-            }
-
-            return newContact;
         }
     }
 }
