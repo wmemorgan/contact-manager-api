@@ -2,6 +2,8 @@ name: Build and deploy .NET Core application to Web App CMBSContactManagerApi
 on:
   push:
     branches:
+    - main
+    - staging
     - update-env-settings
 env:
   AZURE_WEBAPP_NAME: CMBSContactManagerApi
