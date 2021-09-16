@@ -96,7 +96,7 @@ namespace ContactManagerApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Contact> UpdateContact(Contact contact, int id)
         {
-            var result = _contactService.Update(contact, id);
+            var result = _contactService.UpdateContact(contact, id);
             if (result)
             {
                 return NoContent();

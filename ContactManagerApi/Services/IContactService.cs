@@ -13,7 +13,7 @@ namespace ContactManagerApi.Services
         Contact GetContactById(int id);
         List<CallListContact> CreateCallList();
         int Save(Contact contact);
-        bool Update(Contact contact, int id);
+        bool UpdateContact(Contact contact, int id);
         bool Delete(int id);
     }
 }

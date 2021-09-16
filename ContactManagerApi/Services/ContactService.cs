@@ -48,8 +48,8 @@ namespace ContactManagerApi.Services
                 }
             }
 
-            return rtnList.OrderBy(c => c.name.LastName)
-                        .ThenBy(c => c.name.FirstName)
+            return rtnList.OrderBy(c => c.name.Last)
+                        .ThenBy(c => c.name.First)
                         .ToList();
         }
 
@@ -57,22 +57,73 @@ namespace ContactManagerApi.Services
         public int Save(Contact contact)
         {
             Contact newContact = this.CreateContact(contact);
-            
+
             return _contactRepository.Insert(newContact);
         }
 
-        public bool Update(Contact contact, int id)
+        public bool UpdateContact(Contact updatedContact, int id)
         {
-            if (_contactRepository.FindOne(id) != null)
+            Contact contact = this.GetContactById(id);
+
+            if (updatedContact.name != null)
             {
-                contact.Id = id;
-                Contact updatedContact = this.CreateContact(contact);
-                return _contactRepository.Update(updatedContact);
+                if (updatedContact.name.First != null)
+                {
+                    contact.name.First = updatedContact.name.First;
+                }
+
+                if (updatedContact.name.Middle != null)
+                {
+                    contact.name.Middle = updatedContact.name.Middle;
+                }
+
+                if (updatedContact.name.Last != null)
+                {
+                    contact.name.Last = updatedContact.name.Last;
+                }
             }
-            else
+
+            if (updatedContact.address != null)
             {
-                throw new Exception($"Contact {id} not found");
+                if (updatedContact.address.Street != null)
+                {
+                    contact.address.Street = updatedContact.address.Street;
+                }
+
+                if (updatedContact.address.City != null)
+                {
+                    contact.address.City = updatedContact.address.City;
+                }
+
+                if (updatedContact.address.State != null)
+                {
+                    contact.address.State = updatedContact.address.State;
+                }
+
+                if (updatedContact.address.Zip != null)
+                {
+                    contact.address.Zip = updatedContact.address.Zip;
+                }
             }
+
+            if (updatedContact.Email != null)
+            {
+                contact.Email = updatedContact.Email;
+            }
+
+            if (updatedContact.phone.Count > 0)
+            {
+                foreach (Phone p in updatedContact.phone)
+                {
+                    contact.phone.Add(new Phone
+                    {
+                        Number = p.Number,
+                        Type = p.Type
+                    });
+                }
+            }
+
+            return _contactRepository.Update(contact);
         }
 
         public bool Delete(int id)
@@ -94,9 +145,9 @@ namespace ContactManagerApi.Services
             {
                 name = new Name
                 {
-                    FirstName = contact.name.FirstName,
-                    MiddleName = contact.name.MiddleName,
-                    LastName = contact.name.LastName
+                    First = contact.name.First,
+                    Middle = contact.name.Middle,
+                    Last = contact.name.Last
                 },
                 address = new Address
                 {
