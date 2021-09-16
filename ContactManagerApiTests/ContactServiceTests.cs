@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ContactManagerApi.Data;
 using ContactManagerApi.Models;
 using ContactManagerApi.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace ContactManagerApiTests
         [TestMethod]
         public void TestCreateCallList()
         {
-            IContactService contactService = new ContactService(SetupMockRepository(SetupTestDb()));
+            IContactRepository contactRepository = SetupMockRepository(SetupTestDb());
             var testContact1 = CreateTestContact(
                 "Harold",
                 "Francis",
@@ -63,9 +64,10 @@ namespace ContactManagerApiTests
                 Number = "310-424-5555",
                 Type = "mobile"
             });
-            contactService.Save(testContact1);
-            contactService.Save(testContact2);
-            contactService.Save(testContact3);
+            contactRepository.Insert(testContact1);
+            contactRepository.Insert(testContact2);
+            contactRepository.Insert(testContact3);
+            IContactService contactService = new ContactService(contactRepository);
 
             var actual = contactService.CreateCallList();
 
@@ -73,5 +75,66 @@ namespace ContactManagerApiTests
             Assert.AreEqual("302-611-9148", actual.First<CallListContact>().phone);
         }
 
+        [TestMethod]
+        public void TestSaveContact()
+        {
+            IContactRepository contactRepository = SetupMockRepository(SetupTestDb());
+            var testContact1 = CreateTestContact(
+                "Harold",
+                "Francis",
+                "Gilkey",
+                "8360 High Autumn Row",
+                "Cannon",
+                "Delaware",
+                "19797",
+                "harold.gilkey@yahoo.com"
+                );
+            testContact1.phone.Add(new Phone
+            {
+                Number = "302-611-9148",
+                Type = "home"
+            });
+            IContactService contactService = new ContactService(contactRepository);
+
+            var actual = contactService.SaveContact(testContact1);
+            var actualNewContact = contactRepository.FindAll().Last();
+
+            Assert.AreEqual("Harold", actualNewContact.name.First);
+
+        }
+
+        [TestMethod]
+        public void TestUpdateContact()
+        {
+            IContactRepository contactRepository = SetupMockRepository(SetupTestDb());
+            var testContact1 = CreateTestContact(
+                "Harold",
+                "Francis",
+                "Gilkey",
+                "8360 High Autumn Row",
+                "Cannon",
+                "Delaware",
+                "19797",
+                "harold.gilkey@yahoo.com"
+                );
+            testContact1.phone.Add(new Phone
+            {
+                Number = "302-611-9148",
+                Type = "home"
+            });
+            contactRepository.Insert(testContact1);
+            IContactService contactService = new ContactService(contactRepository);
+
+            var contactId = contactRepository.FindAll().Last().Id;
+            var updatedContactInfo = new Contact
+            {
+                Email = "hgilkey@gmail.com"
+            };
+            var actual = contactService.UpdateContact(updatedContactInfo, contactId);
+            var actualUpdatedContact = contactRepository.FindOne(contactId);
+
+            Assert.AreEqual("hgilkey@gmail.com", actualUpdatedContact.Email);
+        }
+    
     }
 }
