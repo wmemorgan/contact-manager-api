@@ -48,55 +48,21 @@ namespace ContactManagerApi.Services
                 }
             }
 
-            return rtnList.OrderBy(c => c.name.LastName)
-                        .ThenBy(c => c.name.FirstName)
+            return rtnList.OrderBy(c => c.name.Last)
+                        .ThenBy(c => c.name.First)
                         .ToList();
         }
 
 
-        public int Save(Contact contact)
-        {
-            Contact newContact = this.CreateContact(contact);
-            
-            return _contactRepository.Insert(newContact);
-        }
-
-        public bool Update(Contact contact, int id)
-        {
-            if (_contactRepository.FindOne(id) != null)
-            {
-                contact.Id = id;
-                Contact updatedContact = this.CreateContact(contact);
-                return _contactRepository.Update(updatedContact);
-            }
-            else
-            {
-                throw new Exception($"Contact {id} not found");
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            if (_contactRepository.FindOne(id) != null)
-            {
-                return _contactRepository.Delete(id);
-            }
-            else
-            {
-                throw new Exception($"Contact {id} not found");
-            }
-                
-        }
-
-        private Contact CreateContact(Contact contact)
+        public int SaveContact(Contact contact)
         {
             Contact newContact = new Contact
             {
                 name = new Name
                 {
-                    FirstName = contact.name.FirstName,
-                    MiddleName = contact.name.MiddleName,
-                    LastName = contact.name.LastName
+                    First = contact.name.First,
+                    Middle = contact.name.Middle,
+                    Last = contact.name.Last
                 },
                 address = new Address
                 {
@@ -115,14 +81,92 @@ namespace ContactManagerApi.Services
 
             foreach (Phone p in contact.phone)
             {
-                newContact.phone.Add(new Phone 
-                { 
-                    Number = p.Number, 
-                    Type = p.Type 
+                newContact.phone.Add(new Phone
+                {
+                    Number = p.Number,
+                    Type = p.Type
                 });
             }
 
-            return newContact;
+            return _contactRepository.Insert(newContact);
+        }
+
+        public bool UpdateContact(Contact updatedContact, int id)
+        {
+            Contact contact = this.GetContactById(id);
+
+            if (updatedContact.name != null)
+            {
+                if (updatedContact.name.First != null)
+                {
+                    contact.name.First = updatedContact.name.First;
+                }
+
+                if (updatedContact.name.Middle != null)
+                {
+                    contact.name.Middle = updatedContact.name.Middle;
+                }
+
+                if (updatedContact.name.Last != null)
+                {
+                    contact.name.Last = updatedContact.name.Last;
+                }
+            }
+
+            if (updatedContact.address != null)
+            {
+                if (updatedContact.address.Street != null)
+                {
+                    contact.address.Street = updatedContact.address.Street;
+                }
+
+                if (updatedContact.address.City != null)
+                {
+                    contact.address.City = updatedContact.address.City;
+                }
+
+                if (updatedContact.address.State != null)
+                {
+                    contact.address.State = updatedContact.address.State;
+                }
+
+                if (updatedContact.address.Zip != null)
+                {
+                    contact.address.Zip = updatedContact.address.Zip;
+                }
+            }
+
+            if (updatedContact.Email != null)
+            {
+                contact.Email = updatedContact.Email;
+            }
+
+            if (updatedContact.phone.Count > 0)
+            {
+                foreach (Phone p in updatedContact.phone)
+                {
+                    contact.phone.Add(new Phone
+                    {
+                        Number = p.Number,
+                        Type = p.Type
+                    });
+                }
+            }
+
+            return _contactRepository.Update(contact);
+        }
+
+        public bool Delete(int id)
+        {
+            if (_contactRepository.FindOne(id) != null)
+            {
+                return _contactRepository.Delete(id);
+            }
+            else
+            {
+                throw new Exception($"Contact {id} not found");
+            }
+                
         }
     }
 }

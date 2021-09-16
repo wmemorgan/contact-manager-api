@@ -39,9 +39,9 @@ namespace ContactManagerApiTests
             {
                 name = new Name
                 {
-                    FirstName = firstName,
-                    MiddleName = middleName,
-                    LastName = lastName
+                    First = firstName,
+                    Middle = middleName,
+                    Last = lastName
                 },
                 address = new Address
                 {

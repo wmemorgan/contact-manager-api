@@ -12,8 +12,8 @@ namespace ContactManagerApi.Services
         IEnumerable<Contact> GetAllContacts();
         Contact GetContactById(int id);
         List<CallListContact> CreateCallList();
-        int Save(Contact contact);
-        bool Update(Contact contact, int id);
+        int SaveContact(Contact contact);
+        bool UpdateContact(Contact contact, int id);
         bool Delete(int id);
     }
 }
